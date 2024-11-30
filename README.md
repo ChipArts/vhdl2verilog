@@ -16,5 +16,18 @@ where n is the number of cores you want to use. This allows for using parallel c
 	$ ./install_yosys.sh
 	$ ./install_ghdl.sh
 
+编译yosys可能遇到如下问题：
+
+```bash
+passes/sat/freduce.cc:457:55: error: ‘numeric_limits’ is not a member of ‘std’
+  457 |                                 out_depth[idx] = std::numeric_limits<int>::max();
+      |                                                       ^~~~~~~~~~~~~~
+passes/sat/freduce.cc:457:70: error: expected primary-expression before ‘int’
+  457 |                                 out_depth[idx] = std::numeric_limits<int>::max();
+      |                                                                      ^~~
+```
+
+需要在文件 `./yosys/passes/sat/freduce.cc` 的开头添加`#include <limits>`
+
 # Test
 Run `./test.synth.sh` to test a synthesis of a test example. This should generate a file called *synth.v* in the current folder.
